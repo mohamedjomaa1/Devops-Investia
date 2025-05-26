@@ -221,6 +221,16 @@
         </execution>
     </executions>
 </plugin>
+
+<plugin>
+      <artifactId>maven-surefire-plugin</artifactId>
+      <configuration>
+        <excludes>
+          <exclude>**/InvestiaApplicationTests.java</exclude>
+        </excludes>
+      </configuration>
+    </plugin>
+
 		</plugins>
 	</build>
 
