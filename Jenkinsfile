@@ -43,7 +43,7 @@ pipeline {
 
         stage('Unit Tests') {
     steps {
-        bat 'mvn test -B -e -X'  // batch mode, error stacktrace, debug logs
+        bat 'mvn test'  // batch mode, error stacktrace, debug logs
     }
     post {
         always {
