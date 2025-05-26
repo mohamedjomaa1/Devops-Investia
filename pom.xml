@@ -28,6 +28,7 @@
 	</scm>
 	<properties>
 		<java.version>17</java.version>
+		<sonar.token>sqa_ff2ef0c06cbafcd3f2984f4aa178703eb39d6d1d</sonar.token>
 	</properties>
 	<dependencies>
 		<dependency>
