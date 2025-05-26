@@ -60,13 +60,16 @@ pipeline {
             }
         }
 
-        stage('Push to DockerHub') {
-    steps {
+        stage('Push Docker Image') {
+            steps {
+                    bat '''
+                        docker login 
+                        docker push %DOCKERHUB_IMAGE%:%IMAGE_TAG%
+                    '''
+                
+            }
+        }
         
-            bat 'docker push %DOCKERHUB_IMAGE%:%IMAGE_TAG%'
-        
-    }
-}
 
         stage('Deploy with Docker Compose') {
             steps {
