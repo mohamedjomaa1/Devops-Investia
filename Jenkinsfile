@@ -21,7 +21,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 // Checkout code from the updated Git repository
-                git branch: 'main', url: 'https://github.com/mohamedjomaa1/Devops-Investia.git'
+                git branch: 'master', url: 'https://github.com/mohamedjomaa1/Devops-Investia.git'
             }
         }
         stage('Build Application') {
