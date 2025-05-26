@@ -27,17 +27,17 @@ pipeline {
             }
         }
 
-   /*     stage('SonarQube Analysis') {
+   /*   stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_ENV}") {
-                    sh '''
-                        mvn sonar:sonar \
-                            -Dsonar.projectKey=investia \
-                            -Dsonar.projectName=Investia \
-                            -Dsonar.host.url=$SONAR_HOST_URL \
-                            -Dsonar.login=$SONAR_AUTH_TOKEN
-                    '''
-                }
+            withSonarQubeEnv('SonarQube') {
+            bat '''
+                mvn sonar:sonar ^
+                    -Dsonar.projectKey=investia ^
+                    -Dsonar.projectName=Investia ^
+                    -Dsonar.host.url=%SONAR_HOST_URL% ^
+                    -Dsonar.login=%SONAR_AUTH_TOKEN%
+            '''
+              }
             }
         } */
 
@@ -56,20 +56,20 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                bat 'docker build -t $DOCKERHUB_IMAGE:$IMAGE_TAG .'
+                bat 'docker build -t %DOCKERHUB_IMAGE%:%IMAGE_TAG% .'
             }
         }
 
         stage('Push to DockerHub') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
-                    bat '''
-                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker push $DOCKERHUB_IMAGE:$IMAGE_TAG
-                    '''
-                }
-            }
+    steps {
+        withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+            bat '''
+                echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                docker push %DOCKERHUB_IMAGE%:%IMAGE_TAG%
+            '''
         }
+    }
+}
 
         stage('Deploy with Docker Compose') {
             steps {
