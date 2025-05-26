@@ -43,15 +43,12 @@ pipeline {
 
         stage('Unit Tests') {
     steps {
-        script {
-            def testStatus = bat(script: 'mvn test', returnStatus: true)
-            if (testStatus != 0) {
-                echo "Tests failed, but continuing pipeline"
-            }
-        }
+        // Run Maven tests on Windows agent using 'bat'
+        bat 'mvn test'
     }
     post {
         always {
+            // Archive JUnit XML reports even if tests fail
             junit 'target/surefire-reports/*.xml'
         }
     }
