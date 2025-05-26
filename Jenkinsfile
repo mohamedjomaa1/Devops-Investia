@@ -7,7 +7,7 @@ pipeline {
         IMAGE_TAG = "latest"
 
         // DockerHub credentials stored in Jenkins (ID = dockerhub-credentials)
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials'
+        DOCKER_CREDENTIALS_ID = 'f5a15a33-68b6-4c20-ad4b-5410c95ff103'
 
         // SonarQube (Jenkins global config ID)
      //   SONARQUBE_ENV = 'SonarQube' // change if needed
@@ -60,16 +60,17 @@ pipeline {
             }
         }
 
-        stage('Push Docker Image') {
-            steps {
-                withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    bat '''
-                        echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
-                        docker push %DOCKERHUB_IMAGE%:%IMAGE_TAG%
-                    '''
-                }
-            }
+
+        stage('Push to DockerHub') {
+    steps {
+        withCredentials([usernamePassword(credentialsId: "${DOCKER_CREDENTIALS_ID}", usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+            bat '''
+                echo %DOCKER_PASS% | docker login -u %DOCKER_USER% --password-stdin
+                docker push %DOCKERHUB_IMAGE%:%IMAGE_TAG%
+            '''
         }
+    }
+}
         
 
         stage('Deploy with Docker Compose') {
