@@ -43,16 +43,15 @@ pipeline {
 
         stage('Unit Tests') {
     steps {
-        // Run Maven tests on Windows agent using 'bat'
-        bat 'mvn test'
+        bat 'mvn test -B -e -X'  // batch mode, error stacktrace, debug logs
     }
     post {
         always {
-            // Archive JUnit XML reports even if tests fail
             junit 'target/surefire-reports/*.xml'
         }
     }
 }
+
 
 
         stage('Build Docker Image') {
