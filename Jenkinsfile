@@ -10,7 +10,7 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'f5a15a33-68b6-4c20-ad4b-5410c95ff103'
 
         // SonarQube (Jenkins global config ID)
-     //   SONARQUBE_ENV = 'SonarQube' // change if needed
+        SONARQUBE_ENV = 'SonarQube' // change if needed
     }
 
     stages {
@@ -27,7 +27,7 @@ pipeline {
             }
         }
 
-   /*   stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
             withSonarQubeEnv('SonarQube') {
             bat '''
@@ -39,7 +39,7 @@ pipeline {
             '''
               }
             }
-        } */
+        } 
 
         /*stage('Unit Tests') {
     steps {
