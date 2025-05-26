@@ -30,13 +30,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
             withSonarQubeEnv('SonarQube') {
-            bat '''
-                mvn sonar:sonar ^
-                    -Dsonar.projectKey=investia ^
-                    -Dsonar.projectName=Investia ^
-                    -Dsonar.host.url=%SONAR_HOST_URL% ^
-                    -Dsonar.login=%SONAR_AUTH_TOKEN%
-            '''
+            bat 'mvn sonar:sonar -X'
               }
             }
         } 
