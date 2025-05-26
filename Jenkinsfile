@@ -30,7 +30,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
             withSonarQubeEnv('SonarQube') {
-            bat 'mvn sonar:sonar -X'
+                           def scannerHome = tool 'SonarQubeScanner' // Name from Global Tool Configuration
+                        bat "${scannerHome}\\bin\\sonar-scanner -X"
               }
             }
         } 

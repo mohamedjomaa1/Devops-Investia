@@ -2,5 +2,5 @@ projectKey=investia
 serverUrl=http://localhost:9000
 serverVersion=25.5.0.107428
 dashboardUrl=http://localhost:9000/dashboard?id=investia
-ceTaskId=16790929-e73b-47c0-8c3d-50b8a05c6b7d
-ceTaskUrl=http://localhost:9000/api/ce/task?id=16790929-e73b-47c0-8c3d-50b8a05c6b7d
+ceTaskId=4f33a48c-5ff5-497b-a148-5ea8633c4edc
+ceTaskUrl=http://localhost:9000/api/ce/task?id=4f33a48c-5ff5-497b-a148-5ea8633c4edc
