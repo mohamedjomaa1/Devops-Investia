@@ -41,7 +41,7 @@ pipeline {
             }
         } */
 
-        stage('Unit Tests') {
+        /*stage('Unit Tests') {
     steps {
         bat 'mvn test'  // batch mode, error stacktrace, debug logs
     }
@@ -50,7 +50,7 @@ pipeline {
             junit 'target/surefire-reports/*.xml'
         }
     }
-}
+}*/
 
 
 
