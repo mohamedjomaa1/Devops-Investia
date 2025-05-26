@@ -62,11 +62,12 @@ pipeline {
 
         stage('Push Docker Image') {
             steps {
+                withCredentials([usernamePassword(credentialsId: DOCKER_CREDENTIALS_ID, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     bat '''
-                        docker login 
+                        echo %DOCKER_PASSWORD% | docker login -u %DOCKER_USERNAME% --password-stdin
                         docker push %DOCKERHUB_IMAGE%:%IMAGE_TAG%
                     '''
-                
+                }
             }
         }
         
