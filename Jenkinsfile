@@ -42,19 +42,21 @@ pipeline {
         } */
 
         stage('Unit Tests') {
-            steps {
-                // Run Maven tests and continue even if tests fail
-                bat 'mvn test || exit 0'
-            }
-            post {
-                always {
-                    // Archive JUnit test results, allow missing files
-                    junit allowEmptyResults: true, testResults
-
-System: ResultsFileCheck: true, 'target/surefire-reports/*.xml'
-                }
+    steps {
+        script {
+            def testStatus = bat(script: 'mvn test', returnStatus: true)
+            if (testStatus != 0) {
+                echo "Tests failed, but continuing pipeline"
             }
         }
+    }
+    post {
+        always {
+            junit 'target/surefire-reports/*.xml'
+        }
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
